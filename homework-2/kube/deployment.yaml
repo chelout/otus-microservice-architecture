@@ -1,0 +1,18 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: otus
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: otus
+  template:
+    metadata:
+      name: otus
+      labels:
+        app: otus
+    spec:
+      containers:
+        - image: chelout/otus-homework_2:v1
+          name: healthcheck
