@@ -1,0 +1,5 @@
+package: server
+generate:
+  echo-server: true
+  models: false
+output: internal/server/http.gen.go
