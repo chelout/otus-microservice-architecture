@@ -3,7 +3,7 @@ replicaCount: 3
 image:
   repository: chelout/otus-homework_4
   pullPolicy: IfNotPresent
-  tag: "v1.8"
+  tag: "v1.9"
 
 service:
   type: ClusterIP
@@ -15,9 +15,7 @@ job:
 
 ingress:
   enabled: true
-  className: ""
-  annotations:
-    kubernetes.io/ingress.class: "nginx"
+  className: "nginx"
   hosts:
     - host: arch.homework
       paths:

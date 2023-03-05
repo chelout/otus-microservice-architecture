@@ -1,3 +1,6 @@
+{{- $prefix := include "hw4.fullname" . -}}
+{{- $postgresql := printf "%s-%s" $prefix "postgresql" -}}
+{{- $port := .Values.postgresql.containerPorts.postgresql | toString -}}
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -63,8 +66,8 @@ spec:
               value: {{ printf "postgresql://%s:%s@%s:%s/%s?sslmode=disable"
                 .Values.postgresql.auth.username
                 .Values.postgresql.auth.password
-                "hw4-release-postgresql"
-                "5432"
+                $postgresql
+                $port
                 .Values.postgresql.auth.database | quote }}
       {{- with .Values.nodeSelector }}
       nodeSelector:

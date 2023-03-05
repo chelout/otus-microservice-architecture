@@ -1,3 +1,6 @@
+{{- $prefix := include "hw4.fullname" . -}}
+{{- $postgresql := printf "%s-%s" $prefix "postgresql" -}}
+{{- $port := .Values.postgresql.containerPorts.postgresql | toString -}}
 apiVersion: batch/v1
 kind: Job
 metadata:
@@ -18,7 +21,7 @@ spec:
             - sh
             - "-c"
             - |
-              until pg_isready -h hw4-release-postgresql -p 5432;
+              until pg_isready -h {{ $postgresql }} -p 5432;
               do echo waiting for database; sleep 2; done;
       containers:
         - name: {{ .Chart.Name }}
@@ -38,8 +41,8 @@ spec:
               value: {{ printf "postgresql://%s:%s@%s:%s/%s?sslmode=disable"
                           .Values.postgresql.auth.username
                           .Values.postgresql.auth.password
-                          "hw4-release-postgresql"
-                          "5432"
+                          $postgresql
+                          $port
                           .Values.postgresql.auth.database | quote }}
             - name: MIGRATIONS_SOURCE
               value: "/deployments/db/migrations"

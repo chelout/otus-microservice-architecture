@@ -1,8 +1,7 @@
 apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
-  name: default-pod-reader
-  namespace: hw4
+  name: {{ include "hw4.fullname" . }}-default-pod-reader
   managedFields:
     - manager: kubectl-create
       operation: Update
@@ -10,8 +9,7 @@ metadata:
 subjects:
   - kind: ServiceAccount
     name: default
-    namespace: hw4
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: Role
-  name: pod-reader
+  name: {{ include "hw4.fullname" . }}-pod-reader

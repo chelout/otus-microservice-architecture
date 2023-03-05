@@ -1,8 +1,7 @@
 apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
 metadata:
-  name: pod-reader
-  namespace: hw4
+  name: {{ include "hw4.fullname" . }}-pod-reader
   managedFields:
     - manager: kubectl-create
       operation: Update
