@@ -1,0 +1,35 @@
+replicaCount: 3
+
+image:
+  repository: chelout/otus-homework_4
+  pullPolicy: IfNotPresent
+  tag: "v1.9"
+
+service:
+  type: ClusterIP
+  port: 8000
+  targetPort: 8000
+
+job:
+  restartPolicy: Never
+
+ingress:
+  enabled: true
+  className: "nginx"
+  hosts:
+    - host: arch.homework
+      paths:
+        - path: /
+          pathType: Prefix
+
+autoscaling:
+  enabled: false
+
+serviceAccount:
+  create: false
+
+postgresql:
+  auth:
+    username: hw4user
+    password: hw4pass
+    database: hw4db

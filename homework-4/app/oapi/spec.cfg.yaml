@@ -1,0 +1,4 @@
+package: server
+generate:
+  embedded-spec: true
+output: internal/server/spec.gen.go
